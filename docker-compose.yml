@@ -1,0 +1,36 @@
+# Docker Compose configuration for the Synapse-AI Orchestrator
+version: '3.8'
+
+services:
+  synapse-orchestrator:
+    # Build the orchestrator environment from the local Dockerfile
+    build: .
+    container_name: synapse_core
+    
+    # Ensure the orchestrator remains active to handle continuous data processing
+    restart: unless-stopped
+    
+    # Load external API keys (e.g., GEMINI_API_KEY) securely from the local .env file
+    env_file:
+      - .env
+      
+    volumes:
+      # CRITICAL: Docker-out-of-Docker (DooD) mapping. 
+      # This socket mount allows the orchestrator container to spawn isolated, 
+      # dynamic sibling containers on the host machine for safe data collection.
+      - /var/run/docker.sock:/var/run/docker.sock
+      
+      # Map internal working directories to the host file system.
+      # This ensures generated Python scripts and output synthetic CSVs are accessible outside the container.
+      - ./collector/raw_data:/app/collector/raw_data
+      - ./temp_agents:/app/temp_agents
+      - ./synthesizer/synthetic_data:/app/synthesizer/synthetic_data
+      
+    environment:
+      # Direct the internal schema parser to communicate with the host machine's Ollama instance
+      - OLLAMA_HOST=http://host.docker.internal:11434
+      
+    extra_hosts:
+      # Ensures 'host.docker.internal' resolves correctly on Linux environments
+      # to enable seamless LLM prompt routing.
+      - "host.docker.internal:host-gateway"

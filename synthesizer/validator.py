@@ -50,7 +50,7 @@ class PrivacyValidator:
         """
         Evaluates the statistical similarity feature-by-feature using the Kolmogorov-Smirnov (KS) test.
         The KS test quantifies the maximum distance between the cumulative distribution 
-        functions (CDF) of the two samples.
+        functions (CDF) of the two samples(bounded by 0 to 1 diffrence between probabilities).
         """
         num_features = real_data.shape[1]
         
@@ -76,7 +76,7 @@ class PrivacyValidator:
         """
         Evaluates the Distance to Closest Record (DCR).
         Calculates the Euclidean distance between every synthetic record and every real record.
-        If any synthetic record is too close to a real record, it indicates the VAE overfitted 
+        If any synthetic record is too close to a real record (in the same latent_dim dimenstional radius sphere), it indicates the VAE overfitted 
         and memorized the raw data, constituting a privacy breach.
         """
         # cdist computes the distance matrix between the two data arrays.

@@ -42,9 +42,9 @@ class TabularVAE(Model):
         self.latent_dim = latent_dim
         
         # ==========================================
-        # 1. ENCODER NETWORK (Inference Model q(z|x))
+        # 1. ENCODER NETWORK (Inference Model q(z|x) - the probabilty of getting the latent representation z given x is the input (this is PDF))
         # ==========================================
-        # Maps the input data to a lower-dimensional hidden representation.
+        # Maps the input data to a lower-dimensional hidden representation (auto encoder).
         self.encoder_inputs = layers.InputLayer(input_shape=(input_dim,))
         self.enc_dense1 = layers.Dense(16, activation='relu')
         self.enc_dense2 = layers.Dense(8, activation='relu')

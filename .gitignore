@@ -1,0 +1,19 @@
+# Python caches and environments
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+.env
+
+# Synapse-AI specific data directories
+# WE MUST NEVER UPLOAD RAW DATA TO GITHUB
+collector/raw_data/
+temp_agents/
+synthesizer/synthetic_data/
+
+# IDE and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

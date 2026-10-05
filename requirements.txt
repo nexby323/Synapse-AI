@@ -1,0 +1,26 @@
+# ==========================================
+# Synapse-AI Core Dependencies
+# ==========================================
+
+# 1. Deep Learning & Generative Synthesis
+# Required for constructing the Variational Autoencoder (TabularVAE) and the LSTM Evaluator models.
+tensorflow>=2.10.0
+
+# 2. Data Processing & Statistical Validation
+# Required for tabular data ingestion (CSV) and mathematical privacy validation
+# (Kolmogorov-Smirnov statistical tests and Euclidean distance matrices).
+pandas>=1.5.0
+scipy>=1.9.0
+
+# 3. Local LLM Communication
+# Required for the schema_parser.py to interact with the local Ollama REST API.
+requests>=2.28.0
+
+# 4. Cloud Integration
+# Required for the external_models/gemini_analyzer.py to stream synthetic telemetry 
+# to Google's Gemini API for threat hunting.
+google-generativeai>=0.4.0
+
+# 5. Environment & Security Management
+# Required for securely injecting API keys from the .env file into the runtime environment.
+python-dotenv>=1.0.0
